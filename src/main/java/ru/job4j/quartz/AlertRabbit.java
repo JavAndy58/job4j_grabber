@@ -6,6 +6,7 @@ import static org.quartz.JobBuilder.*;
 import static org.quartz.TriggerBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.*;
 
+
 public class AlertRabbit {
     public static void main(String[] args) {
         try {
