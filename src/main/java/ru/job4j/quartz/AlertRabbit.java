@@ -15,15 +15,11 @@ public class AlertRabbit {
         Properties properties = propertiesInit();
         int intInit = Integer.parseInt(properties.getProperty("rabbit.interval"));
         int intSleep = Integer.parseInt(properties.getProperty("rabbit.sleep"));
-        try {
+        try (Connection connection = connectionInit(properties)) {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDataMap data = new JobDataMap();
-            try (Connection connection = connectionInit(properties)) {
-                data.put("connection", connection);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            data.put("connection", connection);
             JobDetail job = newJob(Rabbit.class)
                     .usingJobData(data)
                     .build();
@@ -37,9 +33,8 @@ public class AlertRabbit {
             scheduler.scheduleJob(job, trigger);
             Thread.sleep(intSleep);
             scheduler.shutdown();
-
-        } catch (SchedulerException | InterruptedException se) {
-            se.printStackTrace();
+        } catch (SchedulerException | InterruptedException | SQLException e) {
+            e.printStackTrace();
         }
     }
 
