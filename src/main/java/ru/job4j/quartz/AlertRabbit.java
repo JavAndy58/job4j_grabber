@@ -2,29 +2,28 @@ package ru.job4j.quartz;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import static org.quartz.JobBuilder.*;
 import static org.quartz.TriggerBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.*;
 
 public class AlertRabbit {
-    private static Connection cn;
-    private static int intInit;
-    private static int intSleep;
 
-
-    public static void main(String[] args) {
-        init();
+    public static void main(String[] args) throws Exception {
+        Properties properties = propertiesInit();
+        int intInit = Integer.parseInt(properties.getProperty("rabbit.interval"));
+        int intSleep = Integer.parseInt(properties.getProperty("rabbit.sleep"));
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDataMap data = new JobDataMap();
-            data.put("cn", cn);
+            try (Connection connection = connectionInit(properties)) {
+                data.put("connection", connection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             JobDetail job = newJob(Rabbit.class)
                     .usingJobData(data)
                     .build();
@@ -44,22 +43,21 @@ public class AlertRabbit {
         }
     }
 
-    private static void init() {
+    private static Properties propertiesInit() throws Exception {
         try (InputStream in = AlertRabbit.class.getClassLoader().getResourceAsStream("rabbit.properties")) {
             Properties config = new Properties();
             config.load(in);
-            intInit = Integer.parseInt(config.getProperty("rabbit.interval"));
-            intSleep = Integer.parseInt(config.getProperty("rabbit.sleep"));
-            Class.forName(config.getProperty("driver-class-name"));
-            cn = DriverManager.getConnection(
-                    config.getProperty("url"),
-                    config.getProperty("username"),
-                    config.getProperty("password")
-            );
-
-        } catch (IOException | ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            return config;
         }
+    }
+
+    public static Connection connectionInit(Properties properties) throws Exception {
+        Class.forName(properties.getProperty("driver-class-name"));
+        return DriverManager.getConnection(
+                properties.getProperty("url"),
+                properties.getProperty("username"),
+                properties.getProperty("password")
+        );
     }
 
     public static class Rabbit implements Job {
