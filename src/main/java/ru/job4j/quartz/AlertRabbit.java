@@ -4,16 +4,13 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import static org.quartz.JobBuilder.*;
 import static org.quartz.TriggerBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.*;
-
 
 public class AlertRabbit {
     private static Connection cn;
@@ -24,11 +21,10 @@ public class AlertRabbit {
     public static void main(String[] args) {
         init();
         try {
-            List<Long> store = new ArrayList<>();
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDataMap data = new JobDataMap();
-            data.put("store", store);
+            data.put("cn", cn);
             JobDetail job = newJob(Rabbit.class)
                     .usingJobData(data)
                     .build();
@@ -42,7 +38,7 @@ public class AlertRabbit {
             scheduler.scheduleJob(job, trigger);
             Thread.sleep(intSleep);
             scheduler.shutdown();
-            System.out.println(store);
+
         } catch (SchedulerException | InterruptedException se) {
             se.printStackTrace();
         }
@@ -68,14 +64,17 @@ public class AlertRabbit {
 
     public static class Rabbit implements Job {
 
-        public Rabbit() {
-            System.out.println(hashCode());
-        }
         @Override
-        public void execute(JobExecutionContext context) throws JobExecutionException {
-            System.out.println("Rabbit runs here ...");
-            List<Long> store = (List<Long>) context.getJobDetail().getJobDataMap().get("store");
-            store.add(System.currentTimeMillis());
+        public void execute(JobExecutionContext context) {
+            Connection cn = (Connection) context.getJobDetail().getJobDataMap().get("cn");
+            try (PreparedStatement statement =
+                    cn.prepareStatement("insert into rabbit(created_date) values (?)",
+                            Statement.RETURN_GENERATED_KEYS)) {
+                statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(System.currentTimeMillis())));
+                statement.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
