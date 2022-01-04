@@ -4,9 +4,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import utils.DateTimeParser;
+import utils.SqlRuDateTimeParser;
 
 public class SqlRuParse {
     public static void main(String[] args) throws Exception {
+        DateTimeParser dateTimeParser = new SqlRuDateTimeParser();
         Document doc = Jsoup.connect("https://www.sql.ru/forum/job-offers").get();
         Elements row = doc.select(".postslisttopic");
         for (Element td : row) {
@@ -14,6 +17,7 @@ public class SqlRuParse {
             System.out.println(parent.child(1).child(0).attr("href"));
             System.out.println(parent.child(1).text());
             System.out.println(parent.child(5).text());
+            System.out.println(dateTimeParser.parse(parent.child(5).text()));
         }
     }
 }

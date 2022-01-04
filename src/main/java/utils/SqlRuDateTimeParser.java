@@ -1,6 +1,7 @@
 package utils;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class SqlRuDateTimeParser implements DateTimeParser {
@@ -9,6 +10,9 @@ public class SqlRuDateTimeParser implements DateTimeParser {
 
     @Override
     public LocalDateTime parse(String parse) {
-        return null;
+        LocalDateTime localDateTime = LocalDateTime.parse(parse);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy. HH:mm");
+        localDateTime.format(formatter);
+        return localDateTime;
     }
 }
