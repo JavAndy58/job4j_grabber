@@ -16,7 +16,6 @@ public class SqlRuParse {
             Element parent = td.parent();
             System.out.println(parent.child(1).child(0).attr("href"));
             System.out.println(parent.child(1).text());
-            System.out.println(parent.child(5).text());
             System.out.println(dateTimeParser.parse(parent.child(5).text()));
         }
     }
