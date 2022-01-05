@@ -21,22 +21,26 @@ public class SqlRuDateTimeParser implements DateTimeParser {
 
     @Override
     public LocalDateTime parse(String parse) {
+        LocalDateTime localDateTime = null;
         String[] lines = parse.split(", ");
         if (lines[0].equals("сегодня")) {
-            return LocalDateTime.now();
+            localDateTime = LocalDateTime.now();
         }
         if (lines[0].equals("вчера")) {
-            return LocalDateTime.now().minusDays(1);
+            localDateTime = LocalDateTime.now().minusDays(1);
         }
-        String[] linesData = lines[0].split(" ");
-        String[] linesTime = lines[1].split(":");
-        String year = 20 + linesData[2];
-        return LocalDateTime.of(
-                Integer.parseInt(year),
-                MONTHS.get(linesData[1]),
-                Integer.parseInt(linesData[0]),
-                Integer.parseInt(linesTime[0]),
-                Integer.parseInt(linesTime[1])
-                );
+        if (localDateTime == null) {
+            String[] linesData = lines[0].split(" ");
+            String[] linesTime = lines[1].split(":");
+            String year = 20 + linesData[2];
+            localDateTime = LocalDateTime.of(
+                    Integer.parseInt(year),
+                    MONTHS.get(linesData[1]),
+                    Integer.parseInt(linesData[0]),
+                    Integer.parseInt(linesTime[0]),
+                    Integer.parseInt(linesTime[1])
+            );
+        }
+        return localDateTime;
     }
 }
