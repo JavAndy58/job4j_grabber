@@ -21,15 +21,13 @@ public class SqlRuDateTimeParser implements DateTimeParser {
 
     @Override
     public LocalDateTime parse(String parse) {
-        LocalDateTime localDateTime = null;
+        LocalDateTime localDateTime;
         String[] lines = parse.split(", ");
         if (lines[0].equals("сегодня")) {
             localDateTime = LocalDateTime.now();
-        }
-        if (lines[0].equals("вчера")) {
+        } else if (lines[0].equals("вчера")) {
             localDateTime = LocalDateTime.now().minusDays(1);
-        }
-        if (localDateTime == null) {
+        } else {
             String[] linesData = lines[0].split(" ");
             String[] linesTime = lines[1].split(":");
             String year = 20 + linesData[2];
