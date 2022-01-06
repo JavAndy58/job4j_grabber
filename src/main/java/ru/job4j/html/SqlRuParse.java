@@ -4,22 +4,56 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ru.job4j.Post;
+import ru.job4j.grabber.Parse;
 import ru.job4j.utils.DateTimeParser;
+import ru.job4j.utils.PostParser;
 import ru.job4j.utils.SqlRuDateTimeParser;
+import java.util.ArrayList;
+import java.util.List;
 
-public class SqlRuParse {
-    public static void main(String[] args) throws Exception {
-        DateTimeParser dateTimeParser = new SqlRuDateTimeParser();
+public class SqlRuParse implements Parse {
+
+    private static DateTimeParser dateTimeParser;
+
+    public SqlRuParse(DateTimeParser dateTimeParser) {
+        this.dateTimeParser = dateTimeParser;
+    }
+
+    @Override
+    public List<Post> list(String link) throws Exception {
+        List<Post> posts = new ArrayList<>();
+        Post postTemp;
+        postTemp = detail(link);
+        posts.add(postTemp);
+        return posts;
+    }
+
+    @Override
+    public Post detail(String link) throws Exception {
+        PostParser postParser = new PostParser();
+        Post postTemp = new Post();
         for (int counter = 1; counter < 6; counter++) {
-            String stringUrl = "https://www.sql.ru/forum/job-offers/" + counter;
-            Document doc = Jsoup.connect(stringUrl).get();
-            Elements row = doc.select(".postslisttopic");
-            for (Element td : row) {
-                Element parent = td.parent();
-                System.out.println(parent.child(1).child(0).attr("href"));
-                System.out.println(parent.child(1).text());
-                System.out.println(dateTimeParser.parse(parent.child(5).text()));
-            }
+           String stringUrl = link + counter;
+           Document doc = Jsoup.connect(stringUrl).get();
+           Elements row = doc.select(".postslisttopic");
+           for (Element td : row) {
+               Element parent = td.parent();
+               postTemp = postParser.parse(parent.child(1).child(0).attr("href"));
+           }
+
+        }
+        return postTemp;
+    }
+
+    public static void main(String[] args) throws Exception {
+        List<Post> posts;
+        String stringUrl = "https://www.sql.ru/forum/job-offers/";
+        DateTimeParser dateTimeParser = new SqlRuDateTimeParser();
+        SqlRuParse sqlRuParse = new SqlRuParse(dateTimeParser);
+        posts = sqlRuParse.list(stringUrl);
+        for (Post post : posts) {
+            System.out.println(post);
         }
     }
 }
