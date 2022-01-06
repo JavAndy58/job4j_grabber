@@ -1,3 +1,5 @@
+package ru.job4j;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -7,6 +9,24 @@ public class Post {
     private String link;
     private String description;
     private LocalDateTime created;
+
+    public Post() {
+    }
+
+    public Post(int id, String title, String link, String description, LocalDateTime created) {
+        this.id = id;
+        this.title = title;
+        this.link = link;
+        this.description = description;
+        this.created = created;
+    }
+
+    public Post(String title, String link, String description, LocalDateTime created) {
+        this.title = title;
+        this.link = link;
+        this.description = description;
+        this.created = created;
+    }
 
     public int getId() {
         return id;
@@ -45,21 +65,6 @@ public class Post {
     }
 
     public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public Post(int id, String title, String link, String description, LocalDateTime created) {
-        this.id = id;
-        this.title = title;
-        this.link = link;
-        this.description = description;
-        this.created = created;
-    }
-
-    public Post(String title, String link, String description, LocalDateTime created) {
-        this.title = title;
-        this.link = link;
-        this.description = description;
         this.created = created;
     }
 
