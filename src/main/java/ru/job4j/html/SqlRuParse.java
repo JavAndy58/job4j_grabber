@@ -23,23 +23,27 @@ public class SqlRuParse implements Parse {
     @Override
     public List<Post> list(String link) throws Exception {
         List<Post> posts = new ArrayList<>();
-        posts.add(detail(link));
+        for (int counter = 1; counter < 6; counter++) {
+            Post postTemp;
+            String stringUrl = link + counter;
+            String strLink;
+            Document doc = Jsoup.connect(stringUrl).get();
+            Elements row = doc.select(".postslisttopic");
+            for (Element td : row) {
+                Element parent = td.parent();
+                strLink = parent.child(1).child(0).attr("href");
+                postTemp = detail(strLink);
+                posts.add(postTemp);
+            }
+        }
         return posts;
     }
 
     @Override
     public Post detail(String link) throws Exception {
+        Post postTemp;
         PostParser postParser = new PostParser();
-        Post postTemp = new Post();
-        for (int counter = 1; counter < 6; counter++) {
-           String stringUrl = link + counter;
-           Document doc = Jsoup.connect(stringUrl).get();
-           Elements row = doc.select(".postslisttopic");
-           for (Element td : row) {
-               Element parent = td.parent();
-               postTemp = postParser.parse(parent.child(1).child(0).attr("href"));
-           }
-        }
+        postTemp = postParser.parse(link);
         return postTemp;
     }
 
