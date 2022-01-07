@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SqlRuParse implements Parse {
 
-    private static DateTimeParser dateTimeParser;
+    private final DateTimeParser dateTimeParser;
 
     public SqlRuParse(DateTimeParser dateTimeParser) {
         this.dateTimeParser = dateTimeParser;
@@ -23,9 +23,7 @@ public class SqlRuParse implements Parse {
     @Override
     public List<Post> list(String link) throws Exception {
         List<Post> posts = new ArrayList<>();
-        Post postTemp;
-        postTemp = detail(link);
-        posts.add(postTemp);
+        posts.add(detail(link));
         return posts;
     }
 
@@ -41,7 +39,6 @@ public class SqlRuParse implements Parse {
                Element parent = td.parent();
                postTemp = postParser.parse(parent.child(1).child(0).attr("href"));
            }
-
         }
         return postTemp;
     }
@@ -52,8 +49,5 @@ public class SqlRuParse implements Parse {
         DateTimeParser dateTimeParser = new SqlRuDateTimeParser();
         SqlRuParse sqlRuParse = new SqlRuParse(dateTimeParser);
         posts = sqlRuParse.list(stringUrl);
-        for (Post post : posts) {
-            System.out.println(post);
-        }
     }
 }
