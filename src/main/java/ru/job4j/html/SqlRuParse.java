@@ -33,7 +33,10 @@ public class SqlRuParse implements Parse {
                 Element parent = td.parent();
                 strLink = parent.child(1).child(0).attr("href");
                 postTemp = detail(strLink);
-                posts.add(postTemp);
+                if ((postTemp.getTitle().contains("java") || postTemp.getTitle().contains("Java"))
+                    && (!postTemp.getTitle().contains("Javascript") || !postTemp.getTitle().contains("javascript"))) {
+                    posts.add(postTemp);
+                }
             }
         }
         return posts;
@@ -42,16 +45,8 @@ public class SqlRuParse implements Parse {
     @Override
     public Post detail(String link) throws Exception {
         Post postTemp;
-        PostParser postParser = new PostParser();
+        PostParser postParser = new PostParser(dateTimeParser);
         postTemp = postParser.parse(link);
         return postTemp;
-    }
-
-    public static void main(String[] args) throws Exception {
-        List<Post> posts;
-        String stringUrl = "https://www.sql.ru/forum/job-offers/";
-        DateTimeParser dateTimeParser = new SqlRuDateTimeParser();
-        SqlRuParse sqlRuParse = new SqlRuParse(dateTimeParser);
-        posts = sqlRuParse.list(stringUrl);
     }
 }
