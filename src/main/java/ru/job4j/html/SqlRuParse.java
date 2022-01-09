@@ -7,11 +7,8 @@ import org.jsoup.select.Elements;
 import ru.job4j.Post;
 import ru.job4j.grabber.Parse;
 import ru.job4j.utils.DateTimeParser;
-import ru.job4j.utils.PostParser;
-import ru.job4j.utils.SqlRuDateTimeParser;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

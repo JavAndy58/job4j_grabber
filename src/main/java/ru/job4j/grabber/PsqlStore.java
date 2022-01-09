@@ -1,8 +1,9 @@
 package ru.job4j.grabber;
 
 import ru.job4j.Post;
-import java.sql.Connection;
-import java.sql.DriverManager;
+
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,17 +26,56 @@ public class PsqlStore implements Store, AutoCloseable {
 
     @Override
     public void save(Post post) {
-
+        try (PreparedStatement statement =
+                cnn.prepareStatement("insert into post(name, text, link, created) values (?, ?, ?, ?)")) {
+            statement.setString(1, post.getTitle());
+            statement.setString(2, post.getDescription());
+            statement.setString(3, post.getLink());
+            statement.setTimestamp(4, Timestamp.valueOf(post.getCreated()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<Post> getAll() {
-        return null;
+        List<Post> posts = new ArrayList<>();
+        try (PreparedStatement statement = cnn.prepareStatement("select * from post")) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    posts.add(new Post(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("text"),
+                            resultSet.getString("link"),
+                            resultSet.getTimestamp("created").toLocalDateTime()
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return posts;
     }
 
     @Override
     public Post findById(int id) {
-        return null;
+        Post post = new Post();
+        try (PreparedStatement statement = cnn.prepareStatement("select * from post where id = ?")) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    post.setId(id);
+                    post.setTitle(resultSet.getString("name"));
+                    post.setDescription(resultSet.getString("text"));
+                    post.setLink(resultSet.getString("link"));
+                    post.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return post;
     }
 
     @Override
