@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class PsqlStore implements Store, AutoCloseable {
 
-    private Connection cnn;
+    private final Connection cnn;
 
     public PsqlStore(Properties cfg) {
         try {
@@ -87,7 +87,7 @@ public class PsqlStore implements Store, AutoCloseable {
     private Post resultPost(ResultSet resultSet) {
         Post post = null;
         try {
-            post = new Post (resultSet.getInt("id"),
+            post = new Post(resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getString("text"),
                     resultSet.getString("link"),
