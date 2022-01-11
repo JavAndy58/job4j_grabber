@@ -26,7 +26,7 @@ public class SqlRuParse implements Parse {
         List<Post> posts = new ArrayList<>();
         for (int counter = 1; counter < 6; counter++) {
             Post postTemp;
-            String stringUrl = String.format("link/%d", counter);
+            String stringUrl = String.format("%s/%d", link, counter);
             String stringLink;
             Document doc = null;
             try {

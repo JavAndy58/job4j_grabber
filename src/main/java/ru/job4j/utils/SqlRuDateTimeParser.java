@@ -30,13 +30,13 @@ public class SqlRuDateTimeParser implements DateTimeParser {
         } else {
             String[] linesData = lines[0].split(" ");
             String[] linesTime = lines[1].split(":");
-            String year = String.format("20%s", linesData[2]);
+            String year = String.format("%d%s", 20, linesData[2]);
             localDateTime = LocalDateTime.of(
                     Integer.parseInt(year),
                     MONTHS.get(linesData[1]),
                     Integer.parseInt(linesData[0]),
                     Integer.parseInt(linesTime[0]),
-                    Integer.parseInt(linesTime[1])
+                    Integer.parseInt(linesTime[1].substring(1, 2))
             );
         }
         return localDateTime;
