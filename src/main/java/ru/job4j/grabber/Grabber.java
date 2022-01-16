@@ -5,7 +5,6 @@ import org.quartz.impl.StdSchedulerFactory;
 import ru.job4j.Post;
 import ru.job4j.html.SqlRuParse;
 import ru.job4j.utils.SqlRuDateTimeParser;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -93,6 +92,7 @@ public class Grabber implements Grab {
             }
         }).start();
     }
+
 
     public static void main(String[] args) throws Exception {
         Grabber grab = new Grabber();
