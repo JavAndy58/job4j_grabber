@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Emulator {
 
     public static void main(String[] args) {
-
         Scanner in = new Scanner(System.in);
         System.out.println("Введите кешируемую директорию");
         String nameDir = in.nextLine();
@@ -13,6 +12,5 @@ public class Emulator {
         String nameFile = in.nextLine();
         DirFileCache dirFileCache = new DirFileCache(nameDir);
         System.out.println(dirFileCache.load(nameFile));
-
     }
 }
