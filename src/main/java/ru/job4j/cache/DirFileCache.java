@@ -12,31 +12,37 @@ public class DirFileCache extends AbstractCache<String, String> {
         this.cachingDir = cachingDir;
     }
 
-    private boolean validation(String nameFile) {
-        boolean temp = false;
-        File dir = new File(cachingDir);
-        if (dir.isDirectory()) {
-            for (File fileNames : Objects.requireNonNull(dir.listFiles())) {
-                if (fileNames.getName().equals(nameFile)) {
-                    temp = true;
-                }
-            }
-        }
-        return temp;
-    }
+//    private boolean validation(String nameFile) {
+//        boolean temp = false;
+//        File dir = new File(cachingDir);
+//        if (dir.isDirectory()) {
+//            for (File fileNames : Objects.requireNonNull(dir.listFiles())) {
+//                if (fileNames.getName().equals(nameFile)) {
+//                    temp = true;
+//                }
+//            }
+//        }
+//        return temp;
+//    }
+
+
 
     @Override
     protected String load(String key) {
+
+
+
+
+
+
         String textFile = "";
         String nameDir = get(key);
-
         if (validation(key)) {
             if (nameDir == null) {
                 put(key, key);
                 nameDir = get(key);
             }
         }
-
         try {
             File dir = new File(nameDir);
             Scanner input = new Scanner(dir);
