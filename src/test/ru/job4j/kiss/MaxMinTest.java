@@ -25,4 +25,3 @@ public class MaxMinTest {
         Assert.assertEquals(actual, expected);
     }
 }
-
