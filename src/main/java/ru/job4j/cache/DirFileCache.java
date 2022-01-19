@@ -14,7 +14,7 @@ public class DirFileCache extends AbstractCache<String, String> {
 
     @Override
     protected String load(String key) {
-        String textFile = "";
+        String textFile = null;
         try {
             textFile = Files.readString(Path.of(cachingDir, key));
         } catch (IOException e) {
@@ -22,12 +22,4 @@ public class DirFileCache extends AbstractCache<String, String> {
         }
         return textFile;
     }
-
-
-    //        String textFile = get(key);
-//        String strFile = cachingDir + "\\" + key;
-//        if (textFile == null) {
-//            put(key, loadScanner(strFile));
-//            textFile = get(key);
-//        }
 }
