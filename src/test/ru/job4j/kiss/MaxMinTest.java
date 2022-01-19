@@ -9,6 +9,7 @@ public class MaxMinTest {
 
     @Test
     public void whenMaxList() {
+
         MaxMin maxMin = new MaxMin();
         List<Integer> integerList = List.of(1, 10, 100, 200);
         Integer actual = 200;
