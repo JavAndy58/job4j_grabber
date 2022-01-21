@@ -1,22 +1,18 @@
 package ru.job4j.tdd;
 
-import org.hamcrest.core.Is;
-import org.junit.Assert;
+import org.hamcrest.Matcher;
 import org.junit.Ignore;
 import org.junit.Test;
+import ru.job4j.tdd.*;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.function.Predicate;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
-
+import static org.hamcrest.Matchers.is;
 public class CinemaTest {
 
-    @Ignore
+
     @Test
     public void whenBuy() {
         Account account = new AccountCinema();
@@ -25,9 +21,9 @@ public class CinemaTest {
         date.set(2020, 10, 10, 23, 00);
         Ticket ticket = cinema.buy(account, 1, 1, date);
         assertThat(ticket, is(new Ticket3D()));
+
     }
 
-    @Ignore
     @Test
     public void whenFind() {
         Cinema cinema = new Cinema3D();
@@ -37,30 +33,31 @@ public class CinemaTest {
     }
 
     @Ignore
-    @Test
-    public void whenRowNull() {
-        Cinema cinema = new Cinema3D();
-        int result = cinema.getRow(null);
-        assertThat(result, is(nullValue()));
-    }
-
-    @Ignore
-    @Test
-    public void whenColumnNull() {
-        Cinema cinema = new Cinema3D();
-        int result = cinema.getColumn(null);
-        assertThat(result, is(nullValue()));
-    }
-
-    @Ignore
-    @Test
-    public void whenTicketClone() {
-        Account account = new AccountCinema();
+    @Test(expected = IllegalArgumentException.class)
+    public void whenPlaceNot() {
         Cinema cinema = new Cinema3D();
         Calendar date = Calendar.getInstance();
         date.set(2020, 10, 10, 23, 00);
-        Ticket ticket1 = cinema.buy(account, 1, 1, date);
-        Ticket ticket2 = cinema.buy(account, 1, 1, date);
-        assertEquals(ticket1, is(ticket2));
+        cinema.bookingTicket(2, 3, date);
     }
+
+    @Ignore
+    @Test(expected = IllegalArgumentException.class)
+    public void whenDateNot() {
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(2000, 10, 10, 23, 00);
+        cinema.bookingTicket(1, 1, date);
+    }
+
+    @Ignore
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCloneTicket() {
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.set(2000, 10, 10, 23, 00);
+        cinema.bookingTicket(1, 1, date);
+        cinema.bookingTicket(1, 1, date);
+    }
+
 }
