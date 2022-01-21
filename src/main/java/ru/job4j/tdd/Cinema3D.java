@@ -20,9 +20,4 @@ public class Cinema3D implements Cinema {
     public void add(Session session) {
 
     }
-
-    @Override
-    public void bookingTicket(int row, int column, Calendar date) {
-
-    }
 }
