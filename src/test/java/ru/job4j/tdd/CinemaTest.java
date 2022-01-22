@@ -1,18 +1,15 @@
 package ru.job4j.tdd;
 
-import org.hamcrest.Matcher;
 import org.junit.Ignore;
 import org.junit.Test;
-import ru.job4j.tdd.*;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 public class CinemaTest {
 
-
+    @Ignore
     @Test
     public void whenBuy() {
         Account account = new AccountCinema();
@@ -24,6 +21,7 @@ public class CinemaTest {
 
     }
 
+    @Ignore
     @Test
     public void whenFind() {
         Cinema cinema = new Cinema3D();
@@ -32,32 +30,36 @@ public class CinemaTest {
         assertThat(sessions, is(Arrays.asList(new Session3D())));
     }
 
+
     @Ignore
     @Test(expected = IllegalArgumentException.class)
     public void whenPlaceNot() {
+        Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
         Calendar date = Calendar.getInstance();
-        date.set(2020, 10, 10, 23, 00);
-        cinema.bookingTicket(2, 3, date);
+        date.set(2022, 02, 10, 23, 00);
+        cinema.buy(account, -1, 1, date);
     }
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
     public void whenDateNot() {
+        Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
         Calendar date = Calendar.getInstance();
         date.set(2000, 10, 10, 23, 00);
-        cinema.bookingTicket(1, 1, date);
+        cinema.buy(account, 1, 1, date);
     }
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
     public void whenCloneTicket() {
+        Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
         Calendar date = Calendar.getInstance();
-        date.set(2000, 10, 10, 23, 00);
-        cinema.bookingTicket(1, 1, date);
-        cinema.bookingTicket(1, 1, date);
+        date.set(2022, 02, 10, 23, 00);
+        cinema.buy(account, 1, 1, date);
+        cinema.buy(account, 1, 1, date);
     }
 
 }
