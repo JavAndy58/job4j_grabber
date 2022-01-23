@@ -2,15 +2,11 @@ package ru.job4j.template;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import ru.job4j.tdd.Ticket3D;
-
 import java.util.Map;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class GeneratorTest {
-
     @Ignore
     @Test
     public void whenProduceOk() {
