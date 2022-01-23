@@ -6,16 +6,16 @@ import org.junit.Ignore;
 import org.junit.Test;
 import java.util.Calendar;
 
-public class ReportEngineTest {
+public class ReportHTMLTest {
 
     @Ignore
     @Test
-    public void whenOldGenerated() {
+    public void whenHtmlGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
-        Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker = new Employee("Ivan", now, now, 200);
         store.add(worker);
-        Report engine = new ReportEngine(store);
+        Report engine = new ReportHTML(store);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator())
