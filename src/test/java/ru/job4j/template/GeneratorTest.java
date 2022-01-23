@@ -11,7 +11,7 @@ public class GeneratorTest {
     @Test
     public void whenProduceOk() {
         Generator generator = new GeneratorText();
-        Map<String, String> valueMap = Map.of("Petr", "you");
+        Map<String, String> valueMap = Map.of("name", "Petr", "subject", "you");
         String sampleText = "I am a ${name}, Who are ${subject}?";
         String expected = "I am a Petr, Who are you?";
         String actual = generator.produce(sampleText, valueMap);
