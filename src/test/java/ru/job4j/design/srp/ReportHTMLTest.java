@@ -17,13 +17,17 @@ public class ReportHTMLTest {
         store.add(worker);
         Report engine = new ReportHTML(store);
         StringBuilder expect = new StringBuilder()
-                .append("Name; Hired; Fired; Salary;")
+                .append("<html>").append(System.lineSeparator())
+                .append("<body>").append(System.lineSeparator())
+                .append("<h>Name; Hired; Fired; Salary</h>")
                 .append(System.lineSeparator())
-                .append(worker.getName()).append(";")
+                .append("<p>").append(worker.getName()).append(";")
                 .append(worker.getHired()).append(";")
                 .append(worker.getFired()).append(";")
                 .append(worker.getSalary()).append(";")
-                .append(System.lineSeparator());
+                .append("</p>").append(System.lineSeparator())
+                .append("</body>").append(System.lineSeparator())
+                .append("</html>").append(System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 }

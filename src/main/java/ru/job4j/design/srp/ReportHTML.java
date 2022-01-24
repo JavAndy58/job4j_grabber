@@ -13,14 +13,18 @@ public class ReportHTML implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        text.append("Name; Hired; Fired; Salary");
+        text.append("<html>").append(System.lineSeparator());
+        text.append("<body>").append(System.lineSeparator());
+        text.append("<h>Name; Hired; Fired; Salary</h>").append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
-            text.append(employee.getName()).append(";")
+            text.append("<p>").append(employee.getName()).append(";")
                     .append(employee.getHired()).append(";")
                     .append(employee.getFired()).append(";")
                     .append(employee.getSalary()).append(";")
-                    .append(System.lineSeparator());
+                    .append("</p>").append(System.lineSeparator());
         }
+        text.append("</body>").append(System.lineSeparator());
+        text.append("</html>").append(System.lineSeparator());
         return text.toString();
     }
 }

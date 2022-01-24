@@ -10,12 +10,12 @@ public class ReportSalaryUaTest {
 
     @Ignore
     @Test
-    public void whenHtmlGenerated() {
+    public void whenGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
-        Employee worker = new Employee("Ivan", now, now, 200);
+        Employee worker = new Employee("Ivan", now, now, 2.0);
         store.add(worker);
-        Report engine = new ReportHTML(store);
+        Report engine = new ReportSalaryUa(store);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator())

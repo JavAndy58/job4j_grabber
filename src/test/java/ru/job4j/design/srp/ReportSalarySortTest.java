@@ -10,18 +10,16 @@ public class ReportSalarySortTest {
 
     @Ignore
     @Test
-    public void whenSalarySortHtmlGenerated() {
+    public void whenSalarySortGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 200);
         store.add(worker);
-        Report engine = new ReportHTML(store);
+        Report engine = new ReportSalarySort(store);
         StringBuilder expect = new StringBuilder()
-                .append("Name; Hired; Fired; Salary;")
+                .append("Name; Salary")
                 .append(System.lineSeparator())
                 .append(worker.getName()).append(";")
-                .append(worker.getHired()).append(";")
-                .append(worker.getFired()).append(";")
                 .append(worker.getSalary()).append(";")
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expect.toString()));
