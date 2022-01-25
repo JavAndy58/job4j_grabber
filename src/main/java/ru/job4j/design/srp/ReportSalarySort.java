@@ -16,8 +16,12 @@ public class ReportSalarySort implements Report {
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
         text.append("Name; Salary").append(System.lineSeparator());
-        List<Employee> employees = store.findBy(filter);
-        employees.sort(Comparator.comparingDouble(Employee::getSalary).reversed());
+
+
+//        List<Employee> employees = store.findBy(filter);
+//        employees.sort(Comparator.comparingDouble(Employee::getSalary).reversed());
+
+
         for (Employee employee : store.findBy(filter)) {
             text.append(employee.getName()).append(";")
                     .append(employee.getSalary()).append(";")

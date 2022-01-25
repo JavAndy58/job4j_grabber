@@ -9,6 +9,7 @@ public class ReportSalaryUaTest {
 
     @Test
     public void whenGenerated() {
+        double greatBritishPound = 100;
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 200);
@@ -20,7 +21,7 @@ public class ReportSalaryUaTest {
                 .append(worker.getName()).append(";")
                 .append(worker.getHired()).append(";")
                 .append(worker.getFired()).append(";")
-                .append(worker.getSalary()).append(";")
+                .append(worker.getSalary() / greatBritishPound).append(";")
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }

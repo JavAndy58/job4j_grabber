@@ -17,6 +17,7 @@ public class ReportSalarySortTest {
         store.add(worker1);
         store.add(worker2);
         store.add(worker3);
+        store.sorted();
         Report engine = new ReportSalarySort(store);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Salary")
@@ -24,10 +25,8 @@ public class ReportSalarySortTest {
                 .append(worker2.getName()).append(";")
                 .append(worker2.getSalary()).append(";")
                 .append(System.lineSeparator())
-                .append(System.lineSeparator())
                 .append(worker3.getName()).append(";")
                 .append(worker3.getSalary()).append(";")
-                .append(System.lineSeparator())
                 .append(System.lineSeparator())
                 .append(worker1.getName()).append(";")
                 .append(worker1.getSalary()).append(";")
