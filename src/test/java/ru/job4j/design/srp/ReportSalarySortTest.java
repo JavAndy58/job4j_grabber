@@ -17,7 +17,6 @@ public class ReportSalarySortTest {
         store.add(worker1);
         store.add(worker2);
         store.add(worker3);
-        store.sorted();
         Report engine = new ReportSalarySort(store);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Salary")
