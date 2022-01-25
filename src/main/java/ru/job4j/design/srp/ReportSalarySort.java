@@ -1,5 +1,6 @@
 package ru.job4j.design.srp;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -16,7 +17,7 @@ public class ReportSalarySort implements Report {
         StringBuilder text = new StringBuilder();
         text.append("Name; Salary").append(System.lineSeparator());
         List<Employee> employees = store.findBy(filter);
-        employees.sort((o1, o2) -> (int) (o1.getSalary() - o2.getSalary()));
+        employees.sort(Comparator.comparingDouble(Employee::getSalary).reversed());
         for (Employee employee : store.findBy(filter)) {
             text.append(employee.getName()).append(";")
                     .append(employee.getSalary()).append(";")
