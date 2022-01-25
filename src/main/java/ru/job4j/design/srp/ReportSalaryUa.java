@@ -5,9 +5,11 @@ import java.util.function.Predicate;
 public class ReportSalaryUa implements Report {
 
     private Store store;
+    private final double greatBritishPound;
 
     public ReportSalaryUa(Store store) {
         this.store = store;
+        greatBritishPound = 100;
     }
 
     @Override
@@ -18,7 +20,7 @@ public class ReportSalaryUa implements Report {
             text.append(employee.getName()).append(";")
                     .append(employee.getHired()).append(";")
                     .append(employee.getFired()).append(";")
-                    .append(employee.getSalary() / 100).append(";")
+                    .append(employee.getSalary() / greatBritishPound).append(";")
                     .append(System.lineSeparator());
         }
         return text.toString();
