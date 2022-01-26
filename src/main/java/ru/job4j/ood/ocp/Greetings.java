@@ -4,10 +4,13 @@ import java.util.Objects;
 
 public class Greetings {
 
+    private Year year;
     private String formality;
 
-    public Greetings(String formality) {
+
+    public Greetings(String formality, Year year) {
         this.formality = formality;
+        this.year = year;
     }
 
     public String greet() {
@@ -21,11 +24,11 @@ public class Greetings {
         } else {
             temp = "Hello.";
         }
-        return temp;
+        return temp + " " + year.yearning();
     }
 
     public static void main(String[] args) {
-        Greetings greetings = new Greetings("formal");
+        Greetings greetings = new Greetings("formal", new Year());
         System.out.printf("%s, Petr", greetings.greet());
     }
 }
