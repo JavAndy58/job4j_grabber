@@ -9,6 +9,9 @@ public class Employee {
     private Calendar fired;
     private double salary;
 
+    public Employee(String name) {
+    }
+
     public Employee(String name, Calendar hired, Calendar fired, double salary) {
         this.name = name;
         this.hired = hired;
