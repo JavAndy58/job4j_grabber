@@ -1,7 +1,7 @@
 package ru.job4j.design.srp;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.ZoneOffset;
+import java.util.*;
 import java.util.function.Predicate;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -15,6 +15,7 @@ public class ReportXMLTest {
     public void whenXMLGenerated() {
         MemStore store = new MemStore();
         Calendar now = new GregorianCalendar(2022, 01, 27);
+        now.setTimeZone(TimeZone.getTimeZone(ZoneOffset.of("+3")));
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report engine = new ReportXML(store);
