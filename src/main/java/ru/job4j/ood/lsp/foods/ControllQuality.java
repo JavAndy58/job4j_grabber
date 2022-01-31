@@ -1,8 +1,6 @@
 package ru.job4j.ood.lsp.foods;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ControllQuality {
 
@@ -12,23 +10,15 @@ public class ControllQuality {
         this.storages = storages;
     }
 
-    public Storage moving(Food food) {
-        Storage storage;
-        for (Storage storages : storages) {
-            if (storage.accept(food)) {
-                storage.add(food);
-                return storage;
+    public void moving(Food food) {
+        for (Storage stor : storages) {
+            if (stor.accept(food)) {
+                stor.add(food);
             }
         }
     }
 
-
-
-
-
-
-    public static void main(String[] args) {
-        ControllQuality controllQuality = new ControllQuality(Arrays.asList(new Warehouse(), new Shop(), new Trash()));
-
+    public List<Storage> getStorages() {
+        return storages;
     }
 }

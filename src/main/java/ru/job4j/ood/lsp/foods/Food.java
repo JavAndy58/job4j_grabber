@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class Food {
-
     private String name;
     private Calendar expiryDate;
     private Calendar createDate;

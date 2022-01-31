@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Warehouse implements Storage {
-
     private List<Food> foods = new ArrayList<>();
     private final int percentWarehouse = 25;
 
