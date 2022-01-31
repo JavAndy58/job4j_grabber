@@ -6,10 +6,16 @@ import java.util.List;
 public class Trash implements Storage {
 
     private List<Food> foods = new ArrayList<>();
+    private final int percentTrash = 100;
 
     @Override
-    public void add(Food food) {
-        foods.add(food);
+    public boolean add(Food food) {
+        return foods.add(food);
+    }
+
+    @Override
+    public boolean accept(Food food) {
+        return paymentPercent(food) > percentTrash;
     }
 
     @Override
