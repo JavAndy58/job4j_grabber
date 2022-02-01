@@ -11,10 +11,14 @@ public class Shop implements Storage {
         int percentShop = 75;
         int discount = 15;
 
-        if (paymentPercent(food) > percentShop) {
-            food.setDiscount(discount);
+        boolean temp = false;
+        if (accept(food)) {
+            if (paymentPercent(food) > percentShop) {
+                food.setDiscount(discount);
+            }
+            temp = foods.add(food);
         }
-        return foods.add(food);
+        return temp;
     }
 
     @Override

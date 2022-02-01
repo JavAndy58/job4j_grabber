@@ -8,7 +8,11 @@ public class Trash implements Storage {
 
     @Override
     public boolean add(Food food) {
-        return foods.add(food);
+        boolean temp = false;
+        if (accept(food)) {
+            temp = foods.add(food);
+        }
+        return temp;
     }
 
     @Override
