@@ -1,5 +1,6 @@
 package ru.job4j.ood.lsp.foods;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class ControllQuality {
@@ -19,6 +20,6 @@ public class ControllQuality {
     }
 
     public List<Storage> getStorages() {
-        return storages;
+        return new ArrayList<>(storages);
     }
 }

@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Shop implements Storage {
     private List<Food> foods = new ArrayList<>();
-    private final int percentWarehouse = 25;
-    private final int percentShop = 75;
-    private final int discount = 15;
 
     @Override
     public boolean add(Food food) {
+        int percentShop = 75;
+        int discount = 15;
+
         if (paymentPercent(food) > percentShop) {
             food.setDiscount(discount);
         }
@@ -19,11 +19,13 @@ public class Shop implements Storage {
 
     @Override
     public boolean accept(Food food) {
-        return paymentPercent(food) > percentWarehouse && paymentPercent(food) < percentShop;
+        int percentWarehouse = 25;
+
+        return paymentPercent(food) > percentWarehouse && paymentPercent(food) < 100;
     }
 
     @Override
     public List<Food> get() {
-        return foods;
+        return new ArrayList<>(foods);
     }
 }

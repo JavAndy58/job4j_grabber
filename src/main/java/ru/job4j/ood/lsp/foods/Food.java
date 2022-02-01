@@ -1,19 +1,19 @@
 package ru.job4j.ood.lsp.foods;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Food {
     private String name;
-    private Calendar expiryDate;
-    private Calendar createDate;
+    private LocalDate createDate;
+    private LocalDate expiryDate;
     private double price;
     private double discount;
 
-    public Food(String name, Calendar expiryDate, Calendar createDate, double price, double discount) {
+    public Food(String name, LocalDate createDate, LocalDate expiryDate, double price, double discount) {
         this.name = name;
-        this.expiryDate = expiryDate;
         this.createDate = createDate;
+        this.expiryDate = expiryDate;
         this.price = price;
         this.discount = discount;
     }
@@ -26,20 +26,20 @@ public class Food {
         this.name = name;
     }
 
-    public Calendar getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(Calendar expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public Calendar getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Calendar createDate) {
+    public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
+    }
+
+    public LocalDate getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(LocalDate expiryDate) {
+        this.expiryDate = expiryDate;
     }
 
     public double getPrice() {
@@ -68,13 +68,13 @@ public class Food {
         }
         Food food = (Food) o;
         return Double.compare(food.price, price) == 0 && Double.compare(food.discount, discount) == 0
-                && Objects.equals(name, food.name) && Objects.equals(expiryDate, food.expiryDate)
-                && Objects.equals(createDate, food.createDate);
+                && Objects.equals(name, food.name) && Objects.equals(createDate, food.createDate)
+                && Objects.equals(expiryDate, food.expiryDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, expiryDate, createDate, price, discount);
+        return Objects.hash(name, createDate, expiryDate, price, discount);
     }
 }
 
