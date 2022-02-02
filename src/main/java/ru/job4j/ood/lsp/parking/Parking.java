@@ -19,21 +19,27 @@ public class Parking {
 
     public boolean addAuto(Auto auto) {
         boolean shouldAddAuto = false;
-        if (auto.getSize() == 1 && placeAutoPassenger != 0) {
+
+        if (auto.getSize() == AutoPassenger.SIZE && placeAutoPassenger != 0) {
             placeAutoPassenger -= 1;
             shouldAddAuto = autoPassenger.add(auto);
-        }
-        if (auto.getSize() > 1 && placeAutoTruck == 0) {
+
+
+
+
+
+        } else if (shouldAddAuto == false && auto.getSize() > AutoPassenger.SIZE && placeAutoTruck == 0) {
             placeAutoPassenger -= auto.getSize();
             shouldAddAuto = autoPassenger.add(auto);
-        }
-        if (auto.getSize() > 1 && placeAutoTruck != 0) {
+
+        } else if (shouldAddAuto == false && auto.getSize() > AutoPassenger.SIZE && placeAutoTruck != 0) {
             placeAutoTruck -= 1;
             shouldAddAuto = autoTruck.add(auto);
         }
-        if (placeAutoPassenger < 0 || placeAutoTruck < 0) {
-            shouldAddAuto = false;
-        }
+
+//        } else if (placeAutoPassenger < 0 || placeAutoTruck < 0) {
+//            shouldAddAuto = false;
+//        }
         return shouldAddAuto;
     }
 }
