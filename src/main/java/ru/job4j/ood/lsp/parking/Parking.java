@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parking {
+
     private int placeAutoPassenger;
     private int placeAutoTruck;
 

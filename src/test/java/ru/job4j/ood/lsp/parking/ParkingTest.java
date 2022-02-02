@@ -5,7 +5,6 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 public class ParkingTest {
-
     @Test
     public void whenTwoPassengerOneTruckTrue() {
         Parking parking = new Parking(2, 1);
