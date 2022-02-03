@@ -24,8 +24,8 @@ public class Parking {
             shouldAddAuto = autoPassenger.add(auto);
 
         } else if (auto.getSize() > AutoPassenger.SIZE && placeAutoTruck == 0) {
-            placeAutoPassenger -= auto.getSize();
-            if (placeAutoPassenger >= 0) {
+            if (placeAutoPassenger >= auto.getSize()) {
+                placeAutoPassenger -= auto.getSize();
                 shouldAddAuto = autoPassenger.add(auto);
             }
         } else if (auto.getSize() > AutoPassenger.SIZE && placeAutoTruck != 0) {
@@ -36,10 +36,10 @@ public class Parking {
     }
 
     public List<Auto> getAutoPassenger() {
-        return autoPassenger;
+        return new ArrayList<>(autoPassenger);
     }
 
     public List<Auto> getAutoTruck() {
-        return autoTruck;
+        return new ArrayList<>(autoTruck);
     }
 }
