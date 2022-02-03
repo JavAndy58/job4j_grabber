@@ -7,7 +7,6 @@ public class Parking {
 
     private int placeAutoPassenger;
     private int placeAutoTruck;
-
     private List<Auto> autoPassenger = new ArrayList<>();
     private List<Auto> autoTruck = new ArrayList<>();
 
@@ -17,29 +16,21 @@ public class Parking {
         this.placeAutoTruck = placeAutoTruck;
     }
 
+    @SuppressWarnings("checkstyle:SimplifyBooleanExpression")
     public boolean addAuto(Auto auto) {
         boolean shouldAddAuto = false;
-
         if (auto.getSize() == AutoPassenger.SIZE && placeAutoPassenger != 0) {
             placeAutoPassenger -= 1;
             shouldAddAuto = autoPassenger.add(auto);
-
-
-
-
-
-        } else if (shouldAddAuto == false && auto.getSize() > AutoPassenger.SIZE && placeAutoTruck == 0) {
+        } else if ((shouldAddAuto != true) && auto.getSize() > AutoPassenger.SIZE && placeAutoTruck == 0) {
             placeAutoPassenger -= auto.getSize();
-            shouldAddAuto = autoPassenger.add(auto);
-
-        } else if (shouldAddAuto == false && auto.getSize() > AutoPassenger.SIZE && placeAutoTruck != 0) {
+            if (placeAutoPassenger >= 0) {
+                shouldAddAuto = autoPassenger.add(auto);
+            }
+        } else if ((shouldAddAuto != true) && auto.getSize() > AutoPassenger.SIZE && placeAutoTruck != 0) {
             placeAutoTruck -= 1;
             shouldAddAuto = autoTruck.add(auto);
         }
-
-//        } else if (placeAutoPassenger < 0 || placeAutoTruck < 0) {
-//            shouldAddAuto = false;
-//        }
         return shouldAddAuto;
     }
 }
