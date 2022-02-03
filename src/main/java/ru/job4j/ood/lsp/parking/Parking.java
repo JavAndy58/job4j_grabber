@@ -16,21 +16,30 @@ public class Parking {
         this.placeAutoTruck = placeAutoTruck;
     }
 
-    @SuppressWarnings("checkstyle:SimplifyBooleanExpression")
     public boolean addAuto(Auto auto) {
         boolean shouldAddAuto = false;
+
         if (auto.getSize() == AutoPassenger.SIZE && placeAutoPassenger != 0) {
             placeAutoPassenger -= 1;
             shouldAddAuto = autoPassenger.add(auto);
-        } else if ((shouldAddAuto != true) && auto.getSize() > AutoPassenger.SIZE && placeAutoTruck == 0) {
+
+        } else if (auto.getSize() > AutoPassenger.SIZE && placeAutoTruck == 0) {
             placeAutoPassenger -= auto.getSize();
             if (placeAutoPassenger >= 0) {
                 shouldAddAuto = autoPassenger.add(auto);
             }
-        } else if ((shouldAddAuto != true) && auto.getSize() > AutoPassenger.SIZE && placeAutoTruck != 0) {
+        } else if (auto.getSize() > AutoPassenger.SIZE && placeAutoTruck != 0) {
             placeAutoTruck -= 1;
             shouldAddAuto = autoTruck.add(auto);
         }
         return shouldAddAuto;
+    }
+
+    public List<Auto> getAutoPassenger() {
+        return autoPassenger;
+    }
+
+    public List<Auto> getAutoTruck() {
+        return autoTruck;
     }
 }

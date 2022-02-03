@@ -3,6 +3,8 @@ package ru.job4j.ood.lsp.parking;
 import org.junit.Test;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class ParkingTest {
 
@@ -45,4 +47,19 @@ public class ParkingTest {
         parking.addAuto(auto2);
         assertFalse(parking.addAuto(auto3));
     }
+
+    @Test
+    public void whenTwoDuplicateFalse() {
+        Parking parking = new Parking(8, 1);
+        Auto auto1 = new AutoPassenger("Oka");
+        Auto auto2 = new AutoTruck("Maz", 2);
+        Auto auto3 = new AutoTruck("Maz", 2);
+        parking.addAuto(auto1);
+        parking.addAuto(auto2);
+        parking.addAuto(auto3);
+        int actual = parking.getAutoPassenger().size() + parking.getAutoTruck().size();
+        int expected = 3;
+        assertThat(actual, is(expected));
+    }
+
 }
