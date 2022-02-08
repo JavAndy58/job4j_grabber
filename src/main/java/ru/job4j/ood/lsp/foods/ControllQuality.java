@@ -1,6 +1,5 @@
 package ru.job4j.ood.lsp.foods;
 
-import java.time.LocalDate;
 import java.util.*;
 
 public class ControllQuality {
@@ -16,6 +15,17 @@ public class ControllQuality {
             if (stor.accept(food)) {
                 stor.add(food);
             }
+        }
+    }
+
+    public void resort() {
+        List<Food> foods = new ArrayList<>();
+        for (Storage storage : storages) {
+            List<Food> foodsTemp = storage.get();
+            foods.addAll(foodsTemp);
+        }
+        for (Food food : foods) {
+            moving(food);
         }
     }
 
