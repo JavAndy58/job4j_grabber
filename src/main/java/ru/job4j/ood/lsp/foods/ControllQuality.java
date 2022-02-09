@@ -11,9 +11,9 @@ public class ControllQuality {
     }
 
     public void moving(Food food) {
-        for (Storage stor : storages) {
-            if (stor.accept(food)) {
-                stor.add(food);
+        for (Storage storage : storages) {
+            if (storage.accept(food)) {
+                storage.add(food);
             }
         }
     }
@@ -23,6 +23,7 @@ public class ControllQuality {
         for (Storage storage : storages) {
             List<Food> foodsTemp = storage.get();
             foods.addAll(foodsTemp);
+            storage.clearList();
         }
         for (Food food : foods) {
             moving(food);

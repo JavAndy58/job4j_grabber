@@ -32,4 +32,9 @@ public class Shop implements Storage {
     public List<Food> get() {
         return new ArrayList<>(foods);
     }
+
+    @Override
+    public void clearList() {
+        foods.clear();
+    }
 }

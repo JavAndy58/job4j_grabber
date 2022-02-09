@@ -57,4 +57,15 @@ public class ControllQualityTest {
         Food actual = controllQuality.getStorages().get(0).get().get(0);
         assertThat(actual, is(expected));
     }
+
+    @Test
+    public void whenResortWarehoseOne() {
+        ControllQuality controllQuality = new ControllQuality(List.of(new Warehouse(), new Shop(), new Trash()));
+        LocalDate today = LocalDate.now();
+        Food expected = new Food("milk", today.minusDays(5), today.plusDays(30), 100, 0);
+        controllQuality.moving(expected);
+        controllQuality.resort();
+        int actual = controllQuality.getStorages().get(0).get().size();
+        assertThat(actual, is(1));
+    }
 }

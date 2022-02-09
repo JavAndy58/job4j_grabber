@@ -8,6 +8,7 @@ public interface Storage {
     boolean add(Food food);
     boolean accept(Food food);
     List<Food> get();
+    void clearList();
     default double paymentPercent(Food food) {
         int translationPercent = 100;
         LocalDate now = LocalDate.now();
