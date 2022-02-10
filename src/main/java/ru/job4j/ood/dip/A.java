@@ -1,7 +1,6 @@
 package ru.job4j.ood.dip;
 
 public class A {
-
     void someMethod() {
         B b = new B();
         b.someMethodOfB();
@@ -15,7 +14,6 @@ class B {
 }
 
 class BackEndDeveloper {
-
     public void writeJava() {
     }
 }
@@ -27,7 +25,6 @@ class FrontEndDeveloper {
 }
 
 class Project {
-
     private BackEndDeveloper backEndDeveloper = new BackEndDeveloper();
     private FrontEndDeveloper frontEndDeveloper = new FrontEndDeveloper();
 
