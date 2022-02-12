@@ -17,9 +17,8 @@ public class A {
     }
 }
 class B {
-
     void someMethodOfB() {
-//        System.out.println("Hello world");
+        System.out.println("Hello world");
     }
 }
 
@@ -29,7 +28,6 @@ class BackEndDeveloper {
 }
 
 class FrontEndDeveloper {
-
     public void writeJavascript() {
     }
 }
